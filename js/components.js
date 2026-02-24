@@ -109,7 +109,7 @@ const BookComponents = {
           <h1 class="book-detail__title">${book.title}</h1>
           ${book.subtitle ? `<p class="book-detail__subtitle">${book.subtitle}</p>` : ''}
           <p class="book-detail__author">${book.author}</p>
-          <p class="book-detail__year">${book.publishedYear}</p>
+          <p class="book-detail__year">${book.publishedYear} · ${book.pages} стр.</p>
           <p class="book-detail__long-desc">${book.longDescription.replace(/\n/g, '<br>')}</p>
           <div id="buy-${book.id}" class="buy-section"></div>
         </div>
