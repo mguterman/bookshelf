@@ -100,7 +100,9 @@ const BookComponents = {
             alt="Обложка: ${book.title}"
             class="book-detail__cover-img"
             onerror="this.onerror=null;this.src='images/cover-placeholder.svg'"
+            title="Нажмите для увеличения"
           >
+          <p class="cover-zoom-hint">Нажмите на обложку для увеличения</p>
         </div>
         <div class="book-detail__info">
           <div class="book-card__genres" style="margin-bottom:14px">
@@ -169,6 +171,13 @@ const BookComponents = {
     }
 
     parent.appendChild(detail);
+
+    // Лайтбокс для обложки
+    const coverImg = detail.querySelector('.book-detail__cover-img');
+    if (coverImg) {
+      coverImg.style.cursor = 'zoom-in';
+      coverImg.addEventListener('click', () => this._openLightbox(coverImg.src, book.title));
+    }
 
     // Рендерим секцию покупки — после того как el добавлен в DOM
     const buyEl = detail.querySelector(`#buy-${book.id}`);
@@ -279,6 +288,37 @@ const BookComponents = {
 
       parent.appendChild(group);
     });
+  },
+
+  // ── Лайтбокс ────────────────────────────────────────────
+  _openLightbox(src, title) {
+    const overlay = document.createElement('div');
+    overlay.className = 'lightbox';
+    overlay.innerHTML = `
+      <div class="lightbox__backdrop"></div>
+      <div class="lightbox__content">
+        <img src="${src}" alt="${title}" class="lightbox__img">
+        <button class="lightbox__close" aria-label="Закрыть">✕</button>
+      </div>
+    `;
+
+    document.body.appendChild(overlay);
+    document.body.style.overflow = 'hidden';
+
+    // Небольшая задержка для анимации появления
+    requestAnimationFrame(() => overlay.classList.add('is-open'));
+
+    const close = () => {
+      overlay.classList.remove('is-open');
+      overlay.addEventListener('transitionend', () => {
+        overlay.remove();
+        document.body.style.overflow = '';
+      }, { once: true });
+    };
+
+    overlay.querySelector('.lightbox__close').addEventListener('click', close);
+    overlay.querySelector('.lightbox__backdrop').addEventListener('click', close);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); }, { once: true });
   },
 
   // ── Декоративный разделитель ─────────────────────────────
