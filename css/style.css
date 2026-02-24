@@ -1,0 +1,834 @@
+/* ============================================================
+   ПЕРЕМЕННЫЕ
+   ============================================================ */
+:root {
+  /* Палитра */
+  --navy-900:  #080e1e;
+  --navy-800:  #0d1428;
+  --navy-700:  #142038;
+  --navy-600:  #1e3060;
+  --navy-400:  #3a5a8a;
+
+  --gold-600:  #9a7a2e;
+  --gold-500:  #c9a84c;
+  --gold-400:  #d4b96a;
+  --gold-300:  #e8d094;
+  --gold-100:  #f5ead0;
+
+  --parchment: #faf5eb;
+  --paper:     #f2ead8;
+  --cream:     #fdf9f2;
+
+  --text-900:  #1c1c2e;
+  --text-700:  #3c3c50;
+  --text-500:  #6c6c80;
+  --text-light:       #f0ead6;
+  --text-muted-light: rgba(240, 234, 214, 0.6);
+
+  /* Прочее */
+  --radius-sm: 4px;
+  --radius-md: 10px;
+  --radius-lg: 20px;
+
+  --shadow-sm: 0 2px 8px  rgba(12, 20, 40, 0.08);
+  --shadow-md: 0 4px 20px rgba(12, 20, 40, 0.13);
+  --shadow-lg: 0 10px 40px rgba(12, 20, 40, 0.20);
+
+  --transition: 0.25s ease;
+  --container: 1140px;
+}
+
+/* ============================================================
+   СБРОС И БАЗОВЫЕ СТИЛИ
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Lora', Georgia, 'Times New Roman', serif;
+  font-size: 17px;
+  line-height: 1.75;
+  color: var(--text-900);
+  background: var(--cream);
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+
+a {
+  color: var(--gold-600);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+a:hover { color: var(--gold-500); }
+
+/* ============================================================
+   ТИПОГРАФИКА
+   ============================================================ */
+h1, h2, h3, h4 {
+  font-family: 'Playfair Display', Georgia, serif;
+  line-height: 1.2;
+  color: var(--text-900);
+}
+
+.section-title {
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 1.8rem;
+  color: var(--navy-800);
+}
+
+/* ============================================================
+   ЛЕЙАУТ
+   ============================================================ */
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.container--narrow {
+  max-width: 720px;
+}
+
+/* ============================================================
+   НАВИГАЦИЯ
+   ============================================================ */
+.site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  transition: background var(--transition), box-shadow var(--transition),
+              backdrop-filter var(--transition);
+}
+
+/* На главной: прозрачный поверх героя */
+.page-home .site-header {
+  background: transparent;
+}
+
+/* На остальных страницах: сразу тёмный */
+.page-catalog .site-header,
+.page-book    .site-header {
+  background: var(--navy-800);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.35);
+}
+
+/* Когда проскроллили на главной */
+.site-header.scrolled {
+  background: rgba(13, 20, 40, 0.97) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.35) !important;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 68px;
+}
+
+.nav__logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-light);
+  letter-spacing: 0.02em;
+}
+.nav__logo:hover { color: var(--gold-400); }
+
+.nav__links {
+  display: flex;
+  list-style: none;
+  gap: 2.2rem;
+}
+
+.nav__links a {
+  color: var(--text-muted-light);
+  font-size: 0.82rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-family: 'Lora', serif;
+  transition: color var(--transition);
+}
+.nav__links a:hover,
+.nav__links a.is-active {
+  color: var(--gold-400);
+}
+
+/* ============================================================
+   ГЕРОЙ
+   ============================================================ */
+.hero {
+  background: var(--navy-800);
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  padding: 68px 0 56px; /* компактный баннер, не на весь экран */
+}
+
+/* Тонкая сетка из ромбов — ненавязчивый фон */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      transparent 0, transparent 44px,
+      rgba(201, 168, 76, 0.045) 44px, rgba(201, 168, 76, 0.045) 45px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent 0, transparent 44px,
+      rgba(201, 168, 76, 0.045) 44px, rgba(201, 168, 76, 0.045) 45px
+    );
+  pointer-events: none;
+}
+
+/* Радиальное свечение в правом верхнем углу */
+.hero::after {
+  content: '';
+  position: absolute;
+  top: -15%; right: -5%;
+  width: 55%; height: 75%;
+  background: radial-gradient(
+    ellipse,
+    rgba(201, 168, 76, 0.09) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.hero__content {
+  position: relative;
+  z-index: 1;
+  max-width: 680px;
+}
+
+.hero__tagline {
+  display: inline-block;
+  font-size: 0.75rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold-500);
+  margin-bottom: 1.8rem;
+  font-family: 'Lora', serif;
+}
+
+.hero__name {
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  font-weight: 700;
+  color: var(--text-light);
+  line-height: 1.1;
+  margin-bottom: 1.4rem;
+}
+
+/* Золотая черта под именем */
+.hero__name-line {
+  display: block;
+  width: 72px;
+  height: 2px;
+  background: var(--gold-500);
+  margin-top: 18px;
+}
+
+.hero__subtitle {
+  font-size: clamp(1rem, 2.2vw, 1.25rem);
+  color: rgba(240, 234, 214, 0.68);
+  font-style: italic;
+  margin-bottom: 3rem;
+}
+
+/* ============================================================
+   КНОПКИ
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 12px 28px;
+  border-radius: var(--radius-sm);
+  font-family: 'Lora', serif;
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: all var(--transition);
+  border: none;
+  text-decoration: none;
+  white-space: nowrap;
+  line-height: 1.4;
+}
+
+/* Золотая заливка */
+.btn--gold {
+  background: var(--gold-500);
+  color: var(--navy-800);
+}
+.btn--gold:hover {
+  background: var(--gold-400);
+  color: var(--navy-800);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(201, 168, 76, 0.35);
+}
+
+/* Контурная */
+.btn--outline {
+  background: transparent;
+  color: var(--text-700);
+  border: 1.5px solid rgba(60, 60, 80, 0.35);
+}
+.btn--outline:hover {
+  border-color: var(--gold-500);
+  color: var(--gold-600);
+}
+
+/* Amazon */
+.btn--amazon {
+  background: var(--navy-700);
+  color: var(--text-light);
+  font-size: 0.82rem;
+  padding: 9px 14px;
+  gap: 6px;
+}
+.btn--amazon:hover {
+  background: var(--navy-600);
+  color: var(--gold-400);
+}
+
+/* Lulu */
+.btn--lulu {
+  background: #1a6b3a;
+  color: #fff;
+  font-size: 0.82rem;
+  padding: 9px 18px;
+}
+.btn--lulu:hover {
+  background: #1e8045;
+  color: #fff;
+}
+
+/* ============================================================
+   РАЗДЕЛИТЕЛЬ СЕКЦИЙ
+   ============================================================ */
+.section-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 0;
+  margin: 2.5rem 0;
+  position: relative;
+}
+
+.section-divider::before,
+.section-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  max-width: 200px;
+}
+.section-divider::before {
+  background: linear-gradient(to right, transparent, var(--gold-500));
+}
+.section-divider::after {
+  background: linear-gradient(to left,  transparent, var(--gold-500));
+}
+
+.divider-ornament {
+  color: var(--gold-500);
+  font-size: 10px;
+  padding: 0 16px;
+  line-height: 1;
+  flex-shrink: 0;
+  opacity: 0.8;
+}
+
+/* ============================================================
+   СЕКЦИЯ ИЗБРАННЫХ КНИГ (главная)
+   Эффект «карточка выезжает снизу» поверх hero
+   ============================================================ */
+.featured-section {
+  background: var(--parchment);
+  padding: 36px 0 90px;
+  border-radius: 28px 28px 0 0;
+  margin-top: -28px;
+  position: relative;
+  z-index: 2;
+}
+
+/* ============================================================
+   СЕТКА КНИГ
+   ============================================================ */
+.books-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 32px;
+}
+
+/* ============================================================
+   КАРТОЧКА КНИГИ
+   ============================================================ */
+.book-card {
+  background: #fff;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition), box-shadow var(--transition);
+  display: flex;
+  flex-direction: column;
+}
+.book-card:hover {
+  transform: translateY(-7px);
+  box-shadow: var(--shadow-lg);
+}
+
+.book-card__cover-wrap {
+  display: block;
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  background: var(--navy-700);
+  flex-shrink: 0;
+}
+
+.book-card__cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.book-card:hover .book-card__cover {
+  transform: scale(1.05);
+}
+
+.book-card__body {
+  padding: 20px 22px 26px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.book-card__genres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.genre-tag {
+  font-size: 0.7rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--gold-600);
+  background: var(--gold-100);
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-family: 'Lora', serif;
+}
+
+.book-card__title {
+  font-size: 1.18rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.book-card__title a { color: var(--text-900); }
+.book-card__title a:hover { color: var(--gold-600); }
+
+.book-card__subtitle {
+  font-size: 0.88rem;
+  color: var(--text-500);
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+.book-card__desc {
+  font-size: 0.9rem;
+  color: var(--text-700);
+  line-height: 1.6;
+  margin-bottom: 20px;
+  flex: 1;
+}
+
+/* ============================================================
+   ОБ АВТОРЕ (главная)
+   ============================================================ */
+.about-section {
+  background: var(--navy-800);
+  padding: 90px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Декоративное свечение */
+.about-section::before {
+  content: '';
+  position: absolute;
+  bottom: -10%; left: -5%;
+  width: 50%; height: 70%;
+  background: radial-gradient(ellipse, rgba(201,168,76,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.about-section .section-title {
+  color: var(--text-light);
+}
+
+.about__inner {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 64px;
+  align-items: center;
+}
+
+.about__text p {
+  font-size: 1.02rem;
+  line-height: 1.85;
+  color: rgba(240, 234, 214, 0.78);
+  margin-bottom: 1.2rem;
+}
+
+.about__photo-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.about__photo {
+  width: 260px;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--gold-500);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+}
+
+.about__photo-placeholder {
+  width: 260px;
+  height: 320px;
+  border-radius: var(--radius-md);
+  border: 2px dashed rgba(201, 168, 76, 0.35);
+  opacity: 0.5;
+}
+
+/* ============================================================
+   КАТАЛОГ
+   ============================================================ */
+.catalog-hero {
+  background: var(--navy-800);
+  padding: 130px 0 70px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.catalog-hero::after {
+  content: '';
+  position: absolute;
+  top: -20%; right: -10%;
+  width: 50%; height: 80%;
+  background: radial-gradient(ellipse, rgba(201,168,76,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.catalog-hero h1 {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  color: var(--text-light);
+  position: relative;
+  z-index: 1;
+}
+
+.catalog-hero p {
+  color: var(--text-muted-light);
+  font-style: italic;
+  margin-top: 10px;
+  font-size: 1.05rem;
+  position: relative;
+  z-index: 1;
+}
+
+.catalog-section {
+  padding: 70px 0 100px;
+  background: var(--parchment);
+  border-radius: 28px 28px 0 0;
+  margin-top: -28px;
+  position: relative;
+  z-index: 2;
+}
+
+/* ============================================================
+   СТРАНИЦА КНИГИ
+   ============================================================ */
+.page-book-top {
+  background: var(--navy-800);
+  height: 68px; /* совпадает с высотой хедера */
+}
+
+.breadcrumb {
+  background: var(--parchment);
+  padding: 14px 0;
+  border-bottom: 1px solid var(--paper);
+}
+.breadcrumb a {
+  font-size: 0.88rem;
+  color: var(--text-500);
+  transition: color var(--transition);
+}
+.breadcrumb a:hover { color: var(--gold-600); }
+
+.book-detail__header {
+  background: var(--parchment);
+  padding: 50px 0 70px;
+}
+
+.book-detail__header-inner {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+.book-detail__cover-img {
+  width: 100%;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+}
+
+.book-detail__title {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  margin-bottom: 8px;
+}
+
+.book-detail__subtitle {
+  font-size: 1.15rem;
+  color: var(--text-500);
+  font-style: italic;
+  margin-bottom: 16px;
+}
+
+.book-detail__author {
+  font-size: 0.98rem;
+  color: var(--text-700);
+  margin-bottom: 3px;
+}
+
+.book-detail__year {
+  font-size: 0.82rem;
+  color: var(--text-500);
+  margin-bottom: 24px;
+  letter-spacing: 0.04em;
+}
+
+.book-detail__long-desc {
+  font-size: 0.98rem;
+  line-height: 1.85;
+  color: var(--text-700);
+  margin-bottom: 32px;
+  max-width: 520px;
+}
+
+/* ── Секция покупки ─────────────────────────────────────── */
+.buy-section {
+  border-top: 1px solid var(--paper);
+  padding-top: 26px;
+}
+
+.buy-heading {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-900);
+  margin-bottom: 14px;
+}
+
+.edition-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 22px;
+  role: tablist;
+}
+
+.edition-tab {
+  padding: 8px 18px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid rgba(60, 60, 80, 0.3);
+  background: transparent;
+  color: var(--text-700);
+  font-family: 'Lora', serif;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.edition-tab:hover {
+  border-color: var(--gold-500);
+  color: var(--gold-600);
+}
+.edition-tab.is-active {
+  background: var(--navy-800);
+  border-color: var(--navy-800);
+  color: var(--text-light);
+}
+
+.edition-panel { display: none; }
+.edition-panel.is-active { display: block; }
+
+.retailer-group {
+  margin-bottom: 18px;
+}
+
+.retailer-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-500);
+  margin-bottom: 10px;
+  font-family: 'Lora', serif;
+}
+
+.retailer-icon { font-style: normal; }
+
+.region-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ── Секции книги (развороты, отрывок, видео) ──────────── */
+.book-detail__section {
+  padding: 20px 0 60px;
+  background: var(--cream);
+}
+
+.spreads-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.spread-img {
+  width: 100%;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+}
+
+.excerpt-text {
+  font-size: 1.12rem;
+  line-height: 2.1;
+  color: var(--text-700);
+  font-style: italic;
+  padding: 32px 40px;
+  background: var(--parchment);
+  border-left: 3px solid var(--gold-500);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+
+.video-wrap {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  background: var(--navy-900);
+}
+.video-wrap iframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+}
+
+/* ============================================================
+   ФУТЕР
+   ============================================================ */
+.site-footer {
+  background: var(--navy-900);
+  color: rgba(240, 234, 214, 0.45);
+  text-align: center;
+  padding: 36px 24px;
+  font-size: 0.82rem;
+  letter-spacing: 0.03em;
+}
+.site-footer a {
+  color: var(--gold-500);
+  opacity: 0.65;
+}
+.site-footer a:hover { opacity: 1; }
+
+.footer__row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.footer__star {
+  color: var(--gold-500);
+  opacity: 0.4;
+  margin: 0 4px;
+}
+
+/* ============================================================
+   АДАПТИВНОСТЬ
+   ============================================================ */
+@media (max-width: 900px) {
+  .about__inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .about__photo-wrap { order: -1; }
+  .about__photo,
+  .about__photo-placeholder { width: 200px; height: auto; }
+
+  .book-detail__header-inner {
+    grid-template-columns: 200px 1fr;
+    gap: 36px;
+  }
+}
+
+@media (max-width: 680px) {
+  .nav__links {
+    gap: 1.2rem;
+  }
+  .nav__links a {
+    font-size: 0.76rem;
+    letter-spacing: 0.07em;
+  }
+
+  .books-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+  }
+
+  .book-detail__header-inner {
+    grid-template-columns: 1fr;
+  }
+  .book-detail__cover-img {
+    max-width: 200px;
+    margin: 0 auto;
+  }
+
+  .excerpt-text {
+    padding: 24px 22px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav__links { display: none; }
+
+  .books-grid { grid-template-columns: 1fr; }
+
+  .hero__name { font-size: 2.6rem; }
+
+  .region-buttons { flex-direction: column; }
+  .btn--amazon { width: 100%; justify-content: center; }
+}

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Мордехай Гутерман — Поэзия на русском языке</title>
+  <meta name="description" content="Поэтические переводы псалмов и субботних песен на русском языке. Книги Мордехая Гутермана.">
+
+  <meta property="og:title"       content="Мордехай Гутерман — Поэзия">
+  <meta property="og:description" content="Поэтические переводы псалмов и субботних песен на русском языке.">
+  <meta property="og:type"        content="website">
+  <!-- <meta property="og:image" content="https://your-domain.com/images/og-image.jpg"> -->
+  <!-- <meta property="og:url"   content="https://your-domain.com/"> -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="home" class="page-home">
+
+  <!-- ── НАВИГАЦИЯ ──────────────────────────────────────── -->
+  <header class="site-header">
+    <nav class="nav container">
+      <a href="index.html" class="nav__logo">Мордехай Гутерман</a>
+      <ul class="nav__links">
+        <li><a href="#about">Об авторе</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ── ГЕРОЙ ──────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero__content container">
+      <p class="hero__tagline">Поэзия · Переводы · Песни</p>
+      <h1 class="hero__name">
+        Книжная Полка
+        <span class="hero__name-line"></span>
+      </h1>
+    </div>
+  </section>
+
+  <!-- ── КНИГИ ─────────────────────────────────────────── -->
+  <section class="featured-section" id="books">
+    <div class="container">
+      <div id="all-books" class="books-grid"></div>
+    </div>
+  </section>
+
+  <!-- ── ОБ АВТОРЕ ──────────────────────────────────────── -->
+  <section class="about-section" id="about">
+    <div class="container about__inner">
+      <div class="about__text">
+        <h2 class="section-title" style="text-align:left; margin-bottom:1.5rem;">Об авторе</h2>
+
+        <!--
+          Замените этот текст своим.
+        -->
+        <p>Мордехай Гутерман — религиозный еврей и поэт, пишущий на русском языке. Для него это не противоречие, а единый путь: слово служит вере, а вера наполняет слово.</p>
+        <p>Он переводит псалмы Давида и субботние песнопения — стихами, с рифмой и ритмом, стараясь передать не только смысл, но и дыхание оригинала.</p>
+        <p>Его книги адресованы русскоязычным евреям по всему миру — тем, кто хочет приблизиться к традиции через красоту родного языка.</p>
+      </div>
+
+      <div class="about__photo-wrap">
+        <!--
+          Когда появится фото, замените <div> на:
+          <img src="images/author.jpg" alt="Мордехай Гутерман" class="about__photo">
+        -->
+        <div class="about__photo-placeholder" title="Фото автора"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ФУТЕР ──────────────────────────────────────────── -->
+  <footer class="site-footer">
+    <div class="footer__row">
+      <span>© <span id="year"></span> Мордехай Гутерман</span>
+      <span class="footer__star">◆</span>
+      <a href="mailto:mordechai.guterman@gmail.com">mordechai.guterman@gmail.com</a>
+    </div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script src="js/books.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
