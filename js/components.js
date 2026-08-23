@@ -198,7 +198,8 @@ const BookComponents = {
     const content = typeof BOOK_CONTENT !== 'undefined' ? BOOK_CONTENT[book.id] : null;
     const hasExcerpt = Boolean(book.excerpt);
     const hasToc = Boolean(content && content.toc && content.toc.length > 0);
-    const hasPages = Boolean(content && content.pages && content.pages.length > 0);
+    const showPagesTab = book.showPagesTab !== false;
+    const hasPages = showPagesTab && Boolean(content && content.pages && content.pages.length > 0);
 
     if (!hasExcerpt && !hasToc && !hasPages) return '';
 
@@ -207,7 +208,7 @@ const BookComponents = {
         <div class="book-tabs__list" role="tablist" aria-label="Материалы книги">
           <button type="button" class="book-tabs__tab is-active" role="tab" aria-selected="true" aria-controls="tab-excerpt-${book.id}" id="tab-excerpt-button-${book.id}" data-book-tab="excerpt">Отрывок</button>
           <button type="button" class="book-tabs__tab" role="tab" aria-selected="false" aria-controls="tab-toc-${book.id}" id="tab-toc-button-${book.id}" data-book-tab="toc">Оглавление</button>
-          <button type="button" class="book-tabs__tab" role="tab" aria-selected="false" aria-controls="tab-pages-${book.id}" id="tab-pages-button-${book.id}" data-book-tab="pages">Страницы</button>
+          ${showPagesTab ? `<button type="button" class="book-tabs__tab" role="tab" aria-selected="false" aria-controls="tab-pages-${book.id}" id="tab-pages-button-${book.id}" data-book-tab="pages">Страницы</button>` : ''}
         </div>
 
         <div class="book-tabs__panel is-active" role="tabpanel" id="tab-excerpt-${book.id}" aria-labelledby="tab-excerpt-button-${book.id}" data-book-panel="excerpt">
@@ -218,9 +219,9 @@ const BookComponents = {
           ${hasToc ? this._renderTocHTML(content.toc) : '<p class="book-tabs__empty">Оглавление скоро появится.</p>'}
         </div>
 
-        <div class="book-tabs__panel" role="tabpanel" id="tab-pages-${book.id}" aria-labelledby="tab-pages-button-${book.id}" data-book-panel="pages" hidden>
+        ${showPagesTab ? `<div class="book-tabs__panel" role="tabpanel" id="tab-pages-${book.id}" aria-labelledby="tab-pages-button-${book.id}" data-book-panel="pages" hidden>
           ${hasPages ? this._renderPagesHTML(content.pages) : '<p class="book-tabs__empty">Страницы печатного издания скоро появятся.</p>'}
-        </div>
+        </div>` : ''}
       </aside>
     `;
   },

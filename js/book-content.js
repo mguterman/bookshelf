@@ -117,5 +117,62 @@ const BOOK_CONTENT = {
         alt: "Разворот книги «Шимру Шабтотай», страницы 30-31"
       }
     ]
+  },
+
+  "v-zerkale": {
+    toc: [
+      { type: "heading", title: "Отражение первое", visible: true },
+      { type: "item", title: "Я точно знаю - я сильнее всех", page: 1 },
+      { type: "item", title: "Не будь со мною строг", page: 2 },
+      { type: "item", title: "Вот жареный пончик - суфгания", page: 3 },
+      { type: "item", title: "Чего бы мне хватило для счастья", page: 6 },
+      { type: "item", title: "Мы живы", page: 7 },
+      { type: "item", title: "Четвертая свеча", page: 8 },
+      { type: "item", title: "Песах", page: 9 },
+      { type: "item", title: "Телефон в Касриловке, что под Киевом", page: 10 },
+      { type: "item", title: "Молочник из Касриловки", page: 11 },
+      { type: "item", title: "Письмо римского солдата", page: 12 },
+      { type: "item", title: "Мерзость запустения", page: 15 },
+
+      { type: "heading", title: "Отражение второе", visible: true },
+      { type: "item", title: "Море одиночества", page: 16 },
+      { type: "item", title: "Родина", page: 17 },
+      { type: "item", title: "Друзья за тридевять земель", page: 19 },
+      { type: "item", title: "Зеленая Карта", page: 21 },
+      { type: "item", title: "Я отрезал свою половину", page: 22 },
+      { type: "item", title: "Если я заболею", page: 23 },
+      { type: "item", title: "Осколок", page: 24 },
+
+      { type: "heading", title: "Отражение третье", visible: true },
+      { type: "item", title: "Опять о себе", page: 26 },
+      { type: "item", title: "Мне хочется плакать", page: 27 },
+      { type: "item", title: "В гостях у сказки", page: 28 },
+      { type: "item", title: "Фрегат “Эльдорадо”", page: 29 },
+      { type: "item", title: "Свои и чужие", page: 30 },
+      { type: "item", title: "В том мире, где царит покой", page: 31 },
+      { type: "item", title: "Для чего мне друзья?", page: 32 },
+      { type: "item", title: "Старость", page: 33 },
+      { type: "item", title: "На склоне лет", page: 34 },
+
+      { type: "heading", title: "Отражение четвертое", visible: true },
+      { type: "item", title: "Кому он нужен - этот странный я", page: 35 },
+      { type: "item", title: "Сан Сергеич", page: 36 },
+      { type: "item", title: "Я с детства страсть имел к стихам", page: 37 },
+      { type: "item", title: "Муза", page: 38 },
+      { type: "item", title: "Письмо", page: 40 },
+      { type: "item", title: "Поэт не может не писать стихов", page: 42 },
+      { type: "item", title: "Я вновь и вновь овации срываю", page: 43 },
+
+      { type: "heading", title: "Отражение пятое", visible: true },
+      { type: "item", title: "Догоресса молодая", page: 44 },
+      { type: "item", title: "Кайнозой", page: 46 },
+      { type: "item", title: "Император", page: 47 },
+      { type: "item", title: "Дайте сказать", page: 49 },
+      { type: "item", title: "Королева", page: 50 },
+
+      { type: "heading", title: "Заключение", visible: true },
+      { type: "item", title: "Напрасно ловишь, Кисть", page: 51 }
+    ],
+    pages: []
   }
 };
